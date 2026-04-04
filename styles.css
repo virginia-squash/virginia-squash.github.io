@@ -577,7 +577,7 @@ a:hover {
   color: var(--dark);
 }
 
-.feature__nonprofit {
+p.feature__nonprofit {
   font-size: 0.85rem;
   color: #D8D9DD;
   text-align: center;
