@@ -577,6 +577,13 @@ a:hover {
   color: var(--dark);
 }
 
+.feature__nonprofit {
+  font-size: 0.85rem;
+  color: var(--gray);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
 .feature__content .section__title {
   margin-bottom: 0.5rem;
   padding-bottom: 0.75rem;
