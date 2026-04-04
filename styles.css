@@ -443,6 +443,11 @@ a:hover {
   color: var(--dark);
 }
 
+.section__link {
+  text-align: center;
+  margin-top: 2rem;
+}
+
 /* --- Cards --- */
 .card-grid {
   display: grid;
