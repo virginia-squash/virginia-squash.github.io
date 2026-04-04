@@ -148,7 +148,7 @@
 
     shuffle(allImages);
 
-    var cardCount = 16; // 4x4 grid
+    var cardCount = 20; // 4x5 grid
 
     // Assign initial images, cycling if needed
     var displayImages = [];
