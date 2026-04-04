@@ -579,7 +579,7 @@ a:hover {
 
 .feature__nonprofit {
   font-size: 0.85rem;
-  color: var(--gray);
+  color: var(--gray-light);
   text-align: center;
   margin-top: 0.5rem;
 }
