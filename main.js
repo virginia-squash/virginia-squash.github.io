@@ -109,18 +109,37 @@
   var FLIP_STAGGER = 800;
   var FLIP_DURATION = 800;
 
+  function buildImageList(count) {
+    var images = [];
+    for (var i = 1; i <= count; i++) {
+      images.push(COLLAGE_PATH + (i < 10 ? '0' + i : i) + '.jpg');
+    }
+    return images;
+  }
+
+  function probeImages(callback) {
+    var idx = 1;
+    function probe() {
+      var img = new Image();
+      img.onload = function () { idx++; probe(); };
+      img.onerror = function () { callback(buildImageList(idx - 1)); };
+      img.src = COLLAGE_PATH + (idx < 10 ? '0' + idx : idx) + '.jpg';
+    }
+    probe();
+  }
+
   function loadCollageCount(callback) {
     fetch(COLLAGE_PATH + 'count.txt')
-      .then(function (res) { return res.text(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error();
+        return res.text();
+      })
       .then(function (text) {
         var count = parseInt(text.trim(), 10);
-        var images = [];
-        for (var i = 1; i <= count; i++) {
-          images.push(COLLAGE_PATH + (i < 10 ? '0' + i : i) + '.jpg');
-        }
-        callback(images);
+        if (count > 0) callback(buildImageList(count));
+        else probeImages(callback);
       })
-      .catch(function () { callback([]); });
+      .catch(function () { probeImages(callback); });
   }
 
   function initCollage(allImages) {
