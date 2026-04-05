@@ -569,38 +569,12 @@ p.feature__nonprofit {
 }
 
 .newsletter__form {
-  display: flex;
-  gap: 0;
   max-width: 540px;
   margin: 0 auto;
 }
 
-.newsletter__input {
-  flex: 1;
-  padding: 1rem 1.25rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-right: none;
-  border-radius: var(--btn-radius) 0 0 var(--btn-radius);
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.newsletter__input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.newsletter__input:focus {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.newsletter__form .btn {
-  border-radius: 0 var(--btn-radius) var(--btn-radius) 0;
-  white-space: nowrap;
+.newsletter__form iframe {
+  max-height: 400px;
 }
 
 .newsletter__social {
@@ -937,20 +911,6 @@ p.feature__nonprofit {
     justify-content: center;
   }
 
-  /* Newsletter */
-  .newsletter__form {
-    flex-direction: column;
-  }
-
-  .newsletter__input {
-    border-right: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--btn-radius);
-    margin-bottom: 0.75rem;
-  }
-
-  .newsletter__form .btn {
-    border-radius: var(--btn-radius);
-  }
 }
 
 @media (max-width: 480px) {
