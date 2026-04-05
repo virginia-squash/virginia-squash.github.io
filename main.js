@@ -39,7 +39,7 @@
   });
 
   // --- Scroll reveal ---
-  var observer = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -55,28 +55,16 @@
     observer.observe(el);
   });
 
-  // --- Smooth scroll for anchor links (fallback for older browsers) ---
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) {
+  // --- Placeholder form handling ---
+  function initPlaceholderForm(selector, message) {
+    const form = document.querySelector(selector);
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      if (form.action === '#' || form.action === window.location.href) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // --- Contact form handling ---
-  var contactForm = document.querySelector('.contact__form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      // When Formspree is connected, remove this handler.
-      // For now, prevent submission and show confirmation.
-      if (contactForm.action === '#' || contactForm.action === window.location.href) {
-        e.preventDefault();
-        var btn = contactForm.querySelector('button[type="submit"]');
-        var original = btn.textContent;
-        btn.textContent = 'Form not connected yet';
+        const btn = form.querySelector('button[type="submit"]');
+        const original = btn.textContent;
+        btn.textContent = message;
         btn.disabled = true;
         setTimeout(function () {
           btn.textContent = original;
@@ -86,44 +74,28 @@
     });
   }
 
-  // --- Newsletter form handling ---
-  var newsletterForm = document.querySelector('.newsletter__form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
-      if (newsletterForm.action === '#' || newsletterForm.action === window.location.href) {
-        e.preventDefault();
-        var btn = newsletterForm.querySelector('button[type="submit"]');
-        var original = btn.textContent;
-        btn.textContent = 'Coming soon!';
-        btn.disabled = true;
-        setTimeout(function () {
-          btn.textContent = original;
-          btn.disabled = false;
-        }, 2500);
-      }
-    });
-  }
+  initPlaceholderForm('.contact__form', 'Form not connected yet');
+  initPlaceholderForm('.newsletter__form', 'Coming soon!');
+
   // --- Hero Collage ---
-  var COLLAGE_PATH = 'assets/collage/';
-  var FLIP_INTERVAL = 2500;
-  var FLIP_STAGGER = 800;
-  var FLIP_DURATION = 800;
+  const COLLAGE_PATH = 'assets/collage/';
+  const FLIP_INTERVAL = 2500;
+  const FLIP_STAGGER = 800;
+  const FLIP_DURATION = 800;
 
   function buildImageList(count) {
-    var images = [];
-    for (var i = 1; i <= count; i++) {
-      images.push(COLLAGE_PATH + (i < 10 ? '0' + i : i) + '.jpg');
-    }
-    return images;
+    return Array.from({ length: count }, (_, i) =>
+      COLLAGE_PATH + String(i + 1).padStart(2, '0') + '.jpg'
+    );
   }
 
   function probeImages(callback) {
-    var idx = 1;
+    let idx = 1;
     function probe() {
-      var img = new Image();
+      const img = new Image();
       img.onload = function () { idx++; probe(); };
       img.onerror = function () { callback(buildImageList(idx - 1)); };
-      img.src = COLLAGE_PATH + (idx < 10 ? '0' + idx : idx) + '.jpg';
+      img.src = COLLAGE_PATH + String(idx).padStart(2, '0') + '.jpg';
     }
     probe();
   }
@@ -135,7 +107,7 @@
         return res.text();
       })
       .then(function (text) {
-        var count = parseInt(text.trim(), 10);
+        const count = parseInt(text.trim(), 10);
         if (count > 0) callback(buildImageList(count));
         else probeImages(callback);
       })
@@ -143,14 +115,14 @@
   }
 
   function initCollage(allImages) {
-    var container = document.getElementById('heroCollage');
+    const container = document.getElementById('heroCollage');
     if (!container || allImages.length === 0) return null;
 
     // Fisher-Yates shuffle
     function shuffle(arr) {
-      for (var j = arr.length - 1; j > 0; j--) {
-        var k = Math.floor(Math.random() * (j + 1));
-        var tmp = arr[j];
+      for (let j = arr.length - 1; j > 0; j--) {
+        const k = Math.floor(Math.random() * (j + 1));
+        const tmp = arr[j];
         arr[j] = arr[k];
         arr[k] = tmp;
       }
@@ -160,42 +132,40 @@
     shuffle(allImages);
 
     // Calculate grid based on viewport to keep cards roughly square
-    var vw = container.offsetWidth;
-    var vh = container.offsetHeight;
-    var targetSize = Math.min(vw, vh) / 4; // aim for ~4 cells along the short side
-    var cols = Math.round(vw / targetSize);
-    var rows = Math.round(vh / targetSize);
+    const vw = container.offsetWidth;
+    const vh = container.offsetHeight;
+    const targetSize = Math.min(vw, vh) / 4;
+    let cols = Math.round(vw / targetSize);
+    let rows = Math.round(vh / targetSize);
     cols = Math.max(cols, 2);
     rows = Math.max(rows, 2);
     container.style.setProperty('--collage-cols', cols);
     container.style.setProperty('--collage-rows', rows);
-    var cardCount = cols * rows;
+    const cardCount = cols * rows;
 
-    // Assign initial images, cycling if needed
-    var displayImages = [];
-    for (var i = 0; i < cardCount; i++) {
-      displayImages.push(allImages[i % allImages.length]);
-    }
+    const displayImages = Array.from({ length: cardCount }, (_, i) =>
+      allImages[i % allImages.length]
+    );
 
-    var cards = [];
-    for (var i = 0; i < cardCount; i++) {
-      var card = document.createElement('div');
+    const cards = [];
+    for (let i = 0; i < cardCount; i++) {
+      const card = document.createElement('div');
       card.className = 'collage-card';
 
-      var inner = document.createElement('div');
+      const inner = document.createElement('div');
       inner.className = 'collage-card__inner';
 
-      var front = document.createElement('div');
+      const front = document.createElement('div');
       front.className = 'collage-card__face collage-card__face--front';
-      var frontImg = document.createElement('img');
+      const frontImg = document.createElement('img');
       frontImg.src = displayImages[i];
       frontImg.alt = '';
       frontImg.loading = 'lazy';
       front.appendChild(frontImg);
 
-      var back = document.createElement('div');
+      const back = document.createElement('div');
       back.className = 'collage-card__face collage-card__face--back';
-      var backImg = document.createElement('img');
+      const backImg = document.createElement('img');
       backImg.alt = '';
       back.appendChild(backImg);
 
@@ -224,20 +194,20 @@
   function startCollageAnimation(state) {
     if (!state || !state.cards.length) return;
 
-    var collageVisible = true;
+    let collageVisible = true;
 
     // Pause flips when hero scrolls out of view
-    var heroEl = document.getElementById('hero');
+    const heroEl = document.getElementById('hero');
     if (heroEl && 'IntersectionObserver' in window) {
-      var visObs = new IntersectionObserver(function (entries) {
+      const visObs = new IntersectionObserver(function (entries) {
         collageVisible = entries[0].isIntersecting;
       }, { threshold: 0 });
       visObs.observe(heroEl);
     }
 
     function getNextImage(currentSrc) {
-      var attempts = 0;
-      var next;
+      let attempts = 0;
+      let next;
       do {
         next = state.all[Math.floor(Math.random() * state.all.length)];
         attempts++;
@@ -248,16 +218,16 @@
     function flipRandomCard() {
       if (!collageVisible) return;
 
-      var available = [];
-      for (var i = 0; i < state.cards.length; i++) {
+      const available = [];
+      for (let i = 0; i < state.cards.length; i++) {
         if (!state.cards[i].isFlipped) available.push(i);
       }
       if (available.length === 0) return;
 
-      var idx = available[Math.floor(Math.random() * available.length)];
-      var card = state.cards[idx];
+      const idx = available[Math.floor(Math.random() * available.length)];
+      const card = state.cards[idx];
 
-      var nextSrc = getNextImage(card.currentSrc);
+      const nextSrc = getNextImage(card.currentSrc);
       card.backImg.src = nextSrc;
 
       card.el.classList.add('flipped');
@@ -272,7 +242,7 @@
     }
 
     function scheduleNext() {
-      var delay = FLIP_INTERVAL + (Math.random() * FLIP_STAGGER * 2 - FLIP_STAGGER);
+      const delay = FLIP_INTERVAL + (Math.random() * FLIP_STAGGER * 2 - FLIP_STAGGER);
       setTimeout(function () {
         flipRandomCard();
         scheduleNext();
@@ -283,9 +253,9 @@
   }
 
   // Init collage, respecting reduced motion
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   loadCollageCount(function (allImages) {
-    var collageState = initCollage(allImages);
+    const collageState = initCollage(allImages);
     if (!prefersReducedMotion) {
       startCollageAnimation(collageState);
     }

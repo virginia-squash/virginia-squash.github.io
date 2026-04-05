@@ -189,20 +189,6 @@ a:hover {
   padding: 0.8rem 1.75rem;
 }
 
-.btn--disabled {
-  background: var(--gray-light);
-  color: var(--gray);
-  border-color: var(--gray-light);
-  cursor: default;
-}
-
-.btn--disabled:hover {
-  transform: none;
-  box-shadow: none;
-  background: var(--gray-light);
-  color: var(--gray);
-}
-
 /* --- Navigation --- */
 .nav {
   position: fixed;
@@ -435,7 +421,7 @@ a:hover {
   animation: heroSlideUp 0.8s ease-out 0.3s both;
 }
 
-.hero__actions {
+.btn-group {
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -444,14 +430,6 @@ a:hover {
 }
 
 /* --- About --- */
-.about__accent {
-  width: 40px;
-  height: 4px;
-  background: var(--red);
-  border-radius: 2px;
-  margin: 0 auto 2rem;
-}
-
 .about__text {
   font-size: 1.8rem;
   line-height: 1.75;
@@ -492,28 +470,6 @@ a:hover {
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-.card__badge {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 0.35rem 0.9rem;
-  border-radius: 3px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 1rem;
-}
-
-.card__badge--open {
-  background: var(--red);
-  color: var(--white);
-}
-
-.card__badge--soon {
-  background: var(--gray-light);
-  color: var(--dark);
 }
 
 .card__name {
@@ -590,7 +546,7 @@ a:hover {
 
 p.feature__nonprofit {
   font-size: 0.85rem;
-  color: gray;
+  color: var(--gray);
   text-align: center;
   margin-top: 0.5rem;
 }
@@ -950,12 +906,12 @@ p.feature__nonprofit {
     font-size: 1.8rem;
   }
 
-  .hero__actions {
+  .btn-group {
     flex-direction: column;
     align-items: center;
   }
 
-  .hero__actions .btn {
+  .btn-group .btn {
     width: 100%;
     max-width: 280px;
   }
