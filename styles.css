@@ -1092,6 +1092,157 @@ p.feature__nonprofit {
   grid-row: span 2;
 }
 
+/* --- Photo strip (continuous horizontal scroll) --- */
+.photo-strip {
+  width: 100%;
+  overflow: hidden;
+  background: var(--navy-dark);
+  position: relative;
+}
+
+.photo-strip::before,
+.photo-strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.photo-strip::before {
+  left: 0;
+  background: linear-gradient(to right, var(--navy-dark), transparent);
+}
+
+.photo-strip::after {
+  right: 0;
+  background: linear-gradient(to left, var(--navy-dark), transparent);
+}
+
+.photo-strip__track {
+  display: flex;
+  width: max-content;
+  animation: photo-strip-step 32s ease-in-out infinite;
+}
+
+.photo-strip__track img {
+  height: 200px;
+  width: 280px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+/* 8 steps over 32s: ~3.2s hold + ~0.8s smooth slide per photo */
+@keyframes photo-strip-step {
+  0%,    10%   { transform: translateX(0); }
+  12.5%, 22.5% { transform: translateX(-6.25%); }
+  25%,   35%   { transform: translateX(-12.5%); }
+  37.5%, 47.5% { transform: translateX(-18.75%); }
+  50%,   60%   { transform: translateX(-25%); }
+  62.5%, 72.5% { transform: translateX(-31.25%); }
+  75%,   85%   { transform: translateX(-37.5%); }
+  87.5%, 97.5% { transform: translateX(-43.75%); }
+  100%         { transform: translateX(-50%); }
+}
+
+.photo-strip:hover .photo-strip__track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-strip__track { animation: none; }
+}
+
+/* --- Partner quote (AJC pull-quote) --- */
+.partner-quote {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--red);
+  background: rgba(196, 22, 29, 0.04);
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+}
+
+.partner-quote p {
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--dark);
+  margin: 0 0 0.75rem;
+}
+
+.partner-quote cite {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  gap: 0.1rem;
+}
+
+.partner-quote__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--navy-dark);
+  font-size: 0.95rem;
+}
+
+.partner-quote__detail {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+/* --- Testimonials (Squash Rocks Voices) --- */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.testimonial {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  padding: 2rem 2.25rem;
+  border-left: 4px solid var(--red);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial__quote {
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.testimonial__quote p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--dark);
+  margin: 0 0 1rem;
+}
+
+.testimonial__quote p:last-child {
+  margin-bottom: 0;
+}
+
+.testimonial__attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.testimonial__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--navy-dark);
+}
+
+.testimonial__detail {
+  font-size: 0.9rem;
+  color: var(--gray);
+}
+
 /* --- Section Red (Get Involved) --- */
 .section--red {
   background:
@@ -1322,6 +1473,38 @@ p.feature__nonprofit {
   .gallery__item--tall {
     grid-column: auto;
     grid-row: auto;
+  }
+
+  .photo-strip__track img {
+    height: 140px;
+    width: 200px;
+    margin-right: 0.35rem;
+  }
+
+  .photo-strip__track {
+    animation-duration: 28s;
+  }
+
+  .photo-strip::before,
+  .photo-strip::after {
+    width: 40px;
+  }
+
+  .testimonials {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .testimonial {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .partner-quote {
+    padding: 1rem 1.25rem;
+  }
+
+  .partner-quote p {
+    font-size: 1rem;
   }
 
   /* Footer */
