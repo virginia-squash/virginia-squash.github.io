@@ -184,6 +184,27 @@ a:hover {
   color: var(--white);
 }
 
+.btn--white-navy {
+  background: var(--white);
+  color: var(--navy);
+  border-color: var(--white);
+}
+
+.btn--white-navy:hover {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero .btn--primary:hover {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .btn--sm {
   font-size: 0.95rem;
   padding: 0.8rem 1.75rem;
