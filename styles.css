@@ -992,6 +992,10 @@ p.feature__nonprofit {
   gap: 1.5rem;
 }
 
+.stats + .pillars {
+  margin-top: 3rem;
+}
+
 .pillar {
   background: var(--off-white);
   border-radius: var(--card-radius);
