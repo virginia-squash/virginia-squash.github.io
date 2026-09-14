@@ -1199,7 +1199,7 @@ p.feature__nonprofit {
 .photo-strip__track {
   display: flex;
   width: max-content;
-  animation: photo-strip-step 32s ease-in-out infinite;
+  animation: photo-strip-step 68s ease-in-out infinite;
 }
 
 .photo-strip__track img {
@@ -1212,17 +1212,26 @@ p.feature__nonprofit {
   margin-right: 0.5rem;
 }
 
-/* 8 steps over 32s: ~3.2s hold + ~0.8s smooth slide per photo */
+/* 17 steps over 68s: ~3.2s hold + ~0.8s smooth slide per photo */
 @keyframes photo-strip-step {
-  0%,    10%   { transform: translateX(0); }
-  12.5%, 22.5% { transform: translateX(-6.25%); }
-  25%,   35%   { transform: translateX(-12.5%); }
-  37.5%, 47.5% { transform: translateX(-18.75%); }
-  50%,   60%   { transform: translateX(-25%); }
-  62.5%, 72.5% { transform: translateX(-31.25%); }
-  75%,   85%   { transform: translateX(-37.5%); }
-  87.5%, 97.5% { transform: translateX(-43.75%); }
-  100%         { transform: translateX(-50%); }
+  0.000000%, 4.705882% { transform: translateX(0.000000%); }
+  5.882353%, 10.588235% { transform: translateX(-2.941176%); }
+  11.764706%, 16.470588% { transform: translateX(-5.882353%); }
+  17.647059%, 22.352941% { transform: translateX(-8.823529%); }
+  23.529412%, 28.235294% { transform: translateX(-11.764706%); }
+  29.411765%, 34.117647% { transform: translateX(-14.705882%); }
+  35.294118%, 40.000000% { transform: translateX(-17.647059%); }
+  41.176471%, 45.882353% { transform: translateX(-20.588235%); }
+  47.058824%, 51.764706% { transform: translateX(-23.529412%); }
+  52.941176%, 57.647059% { transform: translateX(-26.470588%); }
+  58.823529%, 63.529412% { transform: translateX(-29.411765%); }
+  64.705882%, 69.411765% { transform: translateX(-32.352941%); }
+  70.588235%, 75.294118% { transform: translateX(-35.294118%); }
+  76.470588%, 81.176471% { transform: translateX(-38.235294%); }
+  82.352941%, 87.058824% { transform: translateX(-41.176471%); }
+  88.235294%, 92.941176% { transform: translateX(-44.117647%); }
+  94.117647%, 98.823529% { transform: translateX(-47.058824%); }
+  100% { transform: translateX(-50%); }
 }
 
 .photo-strip:hover .photo-strip__track {
@@ -1567,7 +1576,7 @@ p.feature__nonprofit {
   }
 
   .photo-strip__track {
-    animation-duration: 28s;
+    animation-duration: 59.5s;
   }
 
   .photo-strip::before,
