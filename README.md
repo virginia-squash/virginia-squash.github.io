@@ -4,6 +4,8 @@ Website for the Virginia Squash Racquets Association (Virginia Squash).
 
 **Live site:** https://vasquash.com
 
+**League dashboard:** `/league` and `/league/` redirect to https://xeroshot.org/rcl via `league/index.html`.
+
 ## Local Development
 
 Open `index.html` in a browser. No build step required.
