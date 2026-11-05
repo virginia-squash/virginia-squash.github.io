@@ -644,10 +644,6 @@ p.feature__nonprofit {
   margin: 0 auto;
 }
 
-.newsletter__form iframe {
-  max-height: 400px;
-}
-
 .newsletter__social {
   margin-top: 2.5rem;
   padding-top: 2.5rem;
